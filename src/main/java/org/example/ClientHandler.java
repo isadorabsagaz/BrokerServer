@@ -5,7 +5,7 @@ import java.net.Socket;
 
 public class ClientHandler implements Runnable {
 
-    private Socket socket;
+    private final Socket socket;
 
     public ClientHandler(Socket socket) {
         this.socket = socket;
@@ -24,6 +24,10 @@ public class ClientHandler implements Runnable {
                 System.out.println("Received: " + message);
                 out.println("Received from client: " + message);
             }
+
+            System.out.println("Client disconnected");
+            socket.close();
+
         } catch (IOException e) {
             e.printStackTrace();
         }

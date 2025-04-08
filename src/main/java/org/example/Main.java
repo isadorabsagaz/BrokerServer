@@ -9,10 +9,12 @@ import java.util.concurrent.Executors;
 public class Main {
     public static final int SERVER_PORT = 5000;
 
-    public static void main(String[] args) {
+    public static void main(String[] args)   {
+
         ExecutorService pool = Executors.newCachedThreadPool();
 
-        try (ServerSocket serverSocket = new ServerSocket(SERVER_PORT)) {
+        try (
+                ServerSocket serverSocket = new ServerSocket(SERVER_PORT)) {
             System.out.println("Broker is listening on port " + SERVER_PORT);
 
             while (true) {
