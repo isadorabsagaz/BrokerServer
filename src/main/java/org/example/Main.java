@@ -1,14 +1,10 @@
 package org.example;
 
-import com.google.gson.Gson;
+import org.example.Threads.ClientService;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.List;
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -28,9 +24,13 @@ public class Main {
                 System.out.println("New client connection from " + clientSocket.getInetAddress());
 
                 //socket to threads pool
-                pool.execute(new ClientHandler(clientSocket));
+                try {
+                    ClientService handler = new ClientService(clientSocket);
+                    pool.execute(handler::init);
+                } catch (IOException e){
+                    System.out.println("Error creating ClientHandler " + e.getMessage());
+                }
             }
-
         } catch (IOException e) {
             e.fillInStackTrace();
         } finally {
