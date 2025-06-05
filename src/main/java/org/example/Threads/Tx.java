@@ -18,17 +18,15 @@ public class Tx implements Runnable {
     public void run() {
         try {
             while (true) {
-                byte[] msg = sendingQueue.take();
+                byte[] msg = sendingQueue.take(); //blocks till gets a message
                 out.write(msg);
+                out.write('\n');
                 out.flush();
             }
         } catch (InterruptedException | IOException  e) {
-            System.out.println("Tx interrupted to client "+ service.client.getId());
-            throw new RuntimeException(e);
+            System.out.println("Tx interrupted to client "+ service.client.getId()+ ": " + e.getMessage());
         } finally {
             service.close();
         }
     }
-
-
 }

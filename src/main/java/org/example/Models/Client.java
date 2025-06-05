@@ -1,24 +1,22 @@
 package org.example.Models;
 
 import java.net.InetAddress;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 public class Client {
-    private final int id;
-    private final List<String> topics;
+    private final String id;
+    private final Set<String> topics;
 
     public Client(InetAddress address) {
-        this.id = new Random().nextInt(100);
-        this.topics = new ArrayList<>();
+        this.id = address.getHostAddress();
+        this.topics = new HashSet<>();
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public List<String> getTopics() {
+    public Set<String> getTopics() {
         return topics;
     }
 }
